@@ -20,6 +20,7 @@
             --light: #f8f9fa;
             --gray: #666666;
             --mcp-color: #9966FF;
+            --llm-color: #5436DA;
         }
         
         * {
@@ -225,8 +226,9 @@
                 opacity: 0.05;
             }
         }
-        
-        .mockup-container {
+
+        /* Interactive Chat Demo */
+        .demo-chat-container {
             margin-top: 3rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border-radius: 14px;
@@ -236,10 +238,181 @@
             overflow: hidden;
             transform: perspective(1000px) rotateX(2deg);
             transition: transform 0.5s;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--dark-medium);
         }
         
-        .mockup-container:hover {
+        .demo-chat-container:hover {
             transform: perspective(1000px) rotateX(0);
+        }
+
+        .demo-chat-header {
+            background-color: var(--dark-light);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .demo-chat-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .demo-chat-title h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .demo-chat-logo {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .demo-status {
+            font-size: 0.8rem;
+            color: #4CAF50;
+        }
+
+        .demo-chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .demo-message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .demo-user-message {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-top-right-radius: 4px;
+        }
+
+        .demo-assistant-message {
+            align-self: flex-start;
+            background-color: var(--dark-light);
+            color: var(--light);
+            border-top-left-radius: 4px;
+        }
+
+        .demo-chat-input {
+            padding: 15px 20px;
+            background-color: var(--dark-light);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 24px;
+            border: none;
+            background-color: var(--dark-medium);
+            color: var(--light);
+            font-size: 0.95rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .demo-chat-input input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .demo-chat-input button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-chat-input button:hover {
+            background-color: var(--primary-light);
+            transform: scale(1.05);
+        }
+        
+        .demo-typing {
+            display: flex;
+            gap: 5px;
+            padding: 12px 16px;
+            background-color: var(--dark-light);
+            border-radius: 12px;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+        
+        .demo-typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--light);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .demo-typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .demo-typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .demo-typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Button */
@@ -816,7 +989,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .mockup-container {
+            .demo-chat-container {
                 max-width: 90%;
             }
         }
@@ -963,65 +1136,25 @@
                 <div class="otf-logo">OTF</div>
             </div>
             <p class="fade-in-delay-2">Your AI Business Assistant for Transforming Small Business Operations</p>
-            <a href="#solution" class="btn fade-in-delay-3">Learn More</a>
+            <a href="#solution" class="btn fade-in-delay-2">Learn More</a>
             
-            <div class="mockup-container fade-in-delay-3">
-                <!-- Interface Mockup SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-                  <!-- Background -->
-                  <rect width="800" height="600" fill="#1a1a1a" rx="10" ry="10"/>
-                  
-                  <!-- Header -->
-                  <rect x="20" y="20" width="760" height="70" fill="#262626" rx="10" ry="10"/>
-                  <text x="50" y="65" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FF661F">Trisha.AI</text>
-                  <!-- OTF Logo -->
-                  <circle cx="730" cy="55" r="25" fill="#FF661F"/>
-                  <text x="730" cy="64" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">OTF</text>
-                  
-                  <!-- Main Chat Area -->
-                  <rect x="20" y="110" width="760" height="390" fill="#262626" rx="10" ry="10"/>
-                  
-                  <!-- Animated Background Elements -->
-                  <circle cx="400" cy="300" r="180" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.1"/>
-                  <circle cx="400" cy="300" r="120" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.15"/>
-                  <circle cx="400" cy="300" r="60" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.2"/>
-                  
-                  <!-- User Question Bubble -->
-                  <rect x="400" y="170" width="340" height="60" fill="#333333" rx="10" ry="10"/>
-                  <text x="420" y="190" font-family="Arial, sans-serif" font-size="18" fill="white">
-                    <tspan x="420" y="200">How many new members joined this week?</tspan>
-                  </text>
-                  <text x="720" y="225" font-family="Arial, sans-serif" font-size="14" fill="#999999" text-anchor="end">Today, 2:45 PM</text>
-                  
-                  <!-- AI Answer Bubble -->
-                  <rect x="60" y="250" width="500" height="150" fill="#393939" rx="10" ry="10"/>
-                  <text font-family="Arial, sans-serif" font-size="18" fill="white">
-                    <tspan x="80" y="280">This week we've added <tspan fill="#FF661F" font-weight="bold">24 new members</tspan>,</tspan>
-                    <tspan x="80" y="310">which is a <tspan fill="#FF661F" font-weight="bold">15% increase</tspan> from last week.</tspan>
-                    <tspan x="80" y="350">Would you like to see their demographics breakdown</tspan>
-                    <tspan x="80" y="380">or preferred class times?</tspan>
-                  </text>
-                  <text x="540" y="395" font-family="Arial, sans-serif" font-size="14" fill="#999999" text-anchor="end">Today, 2:46 PM</text>
-                  
-                  <!-- Input Area -->
-                  <rect x="20" y="520" width="760" height="60" fill="#262626" rx="10" ry="10"/>
-                  <text x="50" y="555" font-family="Arial, sans-serif" font-size="18" fill="#666666">Ask Trisha anything about your studio...</text>
-                  
-                  <!-- Send Button -->
-                  <circle cx="740" cy="550" r="20" fill="#FF661F"/>
-                  <text x="740" y="556" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">➤</text>
-                  
-                  <!-- Footer Navigation -->
-                  <rect x="20" y="520" width="760" height="1" fill="#333333"/>
-                  <text font-family="Arial, sans-serif" font-size="14" fill="#999999">
-                    <tspan x="60" y="590">Marketing</tspan>
-                    <tspan x="180" y="590">Members</tspan>
-                    <tspan x="300" y="590">Finance</tspan>
-                    <tspan x="420" y="590">Operations</tspan>
-                    <tspan x="540" y="590">HR</tspan>
-                    <tspan x="660" y="590">Settings</tspan>
-                  </text>
-                </svg>
+            <div class="demo-chat-container fade-in-delay-3">
+                <div class="demo-chat-header">
+                    <div class="demo-chat-title">
+                        <div class="demo-chat-logo">AI</div>
+                        <h3>Try Trisha.AI</h3>
+                    </div>
+                    <span class="demo-status">Online</span>
+                </div>
+                <div class="demo-chat-messages" id="chat-messages">
+                    <div class="demo-assistant-message">
+                        Hi there! I'm Trisha, your AI business assistant for Orangetheory. I can help with marketing, sales, finances, operations, and HR. What would you like to know about your studio today?
+                    </div>
+                </div>
+                <div class="demo-chat-input">
+                    <input type="text" id="user-input" placeholder="Ask anything about your studio..." autocomplete="off">
+                    <button id="send-button">➤</button>
+                </div>
             </div>
         </div>
     </section>
@@ -1130,7 +1263,7 @@
             <div class="section-header">
                 <h2>Architecture</h2>
             </div>
-            <p>Trisha.AI is powered by a sophisticated multi-agent architecture with MCP (Multi-Agent Coordination Protocol) at its core, enabling seamless collaboration between specialized AI agents.</p>
+            <p>Trisha.AI is powered by a sophisticated multi-agent architecture with Claude's LLM technology at its core, enabling natural understanding and human-like responses.</p>
             
             <div class="architecture-container">
                 <div class="mermaid">
@@ -1139,35 +1272,45 @@
                         User["🧑‍💼 Studio Owner/Manager"] --> |"Natural Language Queries"| UI("📱 Chat-Based Interface")
                         UI --> |"Processes Requests"| Core["🧠 Trisha.AI Core"]
                         
+                        %% LLM Integration
+                        Core <--> |"Semantic Understanding\nResponse Generation"| LLM["🔮 Claude LLM\n(Foundation Model)"]
+                        
                         %% MCP Layer
                         Core --- MCP["⚙️ Multi-Agent Coordination Protocol (MCP)"]
                         
                         %% AI Agents
-                        MCP --> CMO["🔊 AI CMO Agent(Marketing)"]
-                        MCP --> CSO["🤝 AI CSO Agent(Sales & Membership)"]
-                        MCP --> CFO["💰 AI CFO Agent(Finance)"]
-                        MCP --> COO["⚙️ AI COO Agent(Operations)"]
-                        MCP --> HRO["👥 AI HRO Agent(HR & Staff)"]
+                        MCP --> CMO["🔊 AI CMO Agent\n(Marketing)"]
+                        MCP --> CSO["🤝 AI CSO Agent\n(Sales & Membership)"]
+                        MCP --> CFO["💰 AI CFO Agent\n(Finance)"]
+                        MCP --> COO["⚙️ AI COO Agent\n(Operations)"]
+                        MCP --> HRO["👥 AI HRO Agent\n(HR & Staff)"]
+                        
+                        %% Agent LLM Connections
+                        CMO <--> LLM
+                        CSO <--> LLM
+                        CFO <--> LLM
+                        COO <--> LLM
+                        HRO <--> LLM
                         
                         %% Cross-Agent Communication
-                        CMO <--> |"Coordinated Workflows"| CSO
-                        CSO <--> |"Coordinated Workflows"| CFO
-                        CFO <--> |"Coordinated Workflows"| COO
-                        COO <--> |"Coordinated Workflows"| HRO
-                        HRO <--> |"Coordinated Workflows"| CMO
+                        CMO <--> |"Coordinated\nWorkflows"| CSO
+                        CSO <--> |"Coordinated\nWorkflows"| CFO
+                        CFO <--> |"Coordinated\nWorkflows"| COO
+                        COO <--> |"Coordinated\nWorkflows"| HRO
+                        HRO <--> |"Coordinated\nWorkflows"| CMO
                         
                         %% RPA Layer
                         CMO & CSO & CFO & COO & HRO --> RPA["🤖 RPA Integration Layer"]
                         
                         %% External Systems
-                        RPA --> FB["Facebook Business"]
+                        RPA --> FB["Facebook\nBusiness"]
                         RPA --> IG["Instagram"]
-                        RPA --> GB["Google Business"]
+                        RPA --> GB["Google\nBusiness"]
                         RPA --> MB["Mindbody"]
                         RPA --> OB["Orangebook"]
-                        RPA --> ADP["ADP Payroll"]
-                        RPA --> CT["Ceterus Accounting"]
-                        RPA --> SP["Orangetheory Studio Portal"]
+                        RPA --> ADP["ADP\nPayroll"]
+                        RPA --> CT["Ceterus\nAccounting"]
+                        RPA --> SP["Orangetheory\nStudio Portal"]
                         
                         %% Secure Data Storage
                         RPA --> SEC["🔒 Secure Data Storage & Security Layer"]
@@ -1175,6 +1318,7 @@
                         %% Styling
                         classDef interface fill:#FF661F,color:white,stroke:#333,stroke-width:1px
                         classDef core fill:#222222,color:white,stroke:#FF661F,stroke-width:2px
+                        classDef llm fill:#5436DA,color:white,stroke:#333,stroke-width:2px
                         classDef mcp fill:#9966FF,color:white,stroke:#333,stroke-width:2px
                         classDef cmo fill:#FF8C42,color:white,stroke:#333,stroke-width:1px
                         classDef cso fill:#347AB7,color:white,stroke:#333,stroke-width:1px
@@ -1187,6 +1331,7 @@
                         
                         class User,UI interface
                         class Core core
+                        class LLM llm
                         class MCP mcp
                         class CMO cmo
                         class CSO cso
@@ -1199,9 +1344,10 @@
                 </div>
                 
                 <div class="architecture-description">
-                    <h3>The Power of MCP - Teamwork for AI Agents</h3>
-                    <p>The Multi-Agent Coordination Protocol (MCP) is the teamwork engine that makes Trisha.AI extraordinary. Just like a successful Orangetheory management team collaborates, MCP enables AI agents to work together as a coordinated virtual executive team.</p>
-                    <p>MCP handles task decomposition, information sharing, consensus building, and workflow orchestration between agents. This allows agents to collaborate on complex tasks like promotion planning, member retention, and business expansion.</p>
+                    <h3>Powered by Claude's Advanced LLM Technology</h3>
+                    <p>At the heart of Trisha.AI is Claude's large language model (LLM), enabling natural conversation, deep understanding of business questions, and contextual awareness of your studio's data.</p>
+                    <p>The Multi-Agent Coordination Protocol (MCP) routes queries to specialized agents powered by domain-specific knowledge. These agents leverage Claude's intelligence to tackle complex tasks across marketing, sales, finance, operations and HR domains.</p>
+                    <p>This architecture creates a seamless experience where studio owners can ask questions in plain language and get expert responses drawing from multiple domains - just like talking to a team of virtual executives.</p>
                 </div>
             </div>
         </div>
@@ -1382,17 +1528,132 @@
         window.addEventListener('load', animateOnScroll);
         window.addEventListener('scroll', animateOnScroll);
         
-        // Mockup interaction
-        const mockup = document.querySelector('.mockup-container');
-        if (mockup) {
-            mockup.addEventListener('mouseenter', () => {
-                mockup.style.transform = 'perspective(1000px) rotateX(0)';
+        // Interactive Chat Demo
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            
+            // Sample responses for the demo
+            const demoResponses = {
+                "default": "I don't have specific information about that yet, but as your AI assistant, I'd be happy to help you with marketing, sales, finances, operations, or HR questions for your Orangetheory studio.",
+                
+                "marketing": "Based on your studio's data, your most successful marketing channel has been Instagram, generating 42% of new leads. Your latest promotion had a 28% conversion rate, which is 5% higher than your average. I'd recommend increasing your Instagram ad budget by 15% and targeting the 25-34 age demographic that's showing the highest engagement.",
+                
+                "sales": "This week you've added 24 new members, which is a 15% increase from last week. Your current lead-to-member conversion rate is 32%, above the OTF network average of 27%. The premium membership tier is showing the strongest growth at 18% month-over-month.",
+                
+                "finance": "Your studio's current revenue is $92,450 this month, up 8% from last month. Operating expenses are at $64,325, giving you a profit margin of 30.4%. Your largest expense category remains staffing at 42% of total costs, which is in line with Orangetheory benchmarks.",
+                
+                "operations": "Your class utilization is currently at 82% capacity, with the 5:30PM weekday classes consistently at 95%+ attendance. I've noticed that Tuesday morning classes have dropped to 65% capacity - you might consider a special promotion for these time slots to boost attendance.",
+                
+                "hr": "Your current staff turnover rate is 14% annually, below the fitness industry average of 22%. Coach satisfaction surveys show 4.2/5 average rating, with schedule flexibility being the most appreciated benefit. You have 3 coaches due for certification renewal next month.",
+                
+                "membership": "Your current active membership is 782 members. Retention rate stands at 87% for the trailing 3 months. The most common membership type is the 8 classes/month package (42% of members), followed by unlimited (38%).",
+                
+                "attendance": "Your highest attendance days are Monday and Wednesday. The 6:30AM and 5:30PM classes consistently have the highest attendance rates. I'm seeing an emerging trend of increased weekend attendance, up 12% compared to last quarter.",
+                
+                "growth": "Based on your current growth trajectory and local market analysis, your studio has potential to increase membership by 15-20% in the next 12 months. The strongest growth opportunity appears to be in the corporate membership segment.",
+                
+                "expansion": "If you're considering opening another location, the data suggests the Westshore area would be optimal based on demographic analysis and minimal competition. Estimated initial investment would be $450K-550K with projected break-even at 14 months.",
+                
+                "competitors": "Your main local competitors have increased their marketing spend by approximately 22% in the last quarter. They're primarily focusing on lower intro rates, while your studio maintains better retention metrics and higher customer satisfaction scores."
+            };
+            
+            // Keywords to match in user input
+            const keywordMap = {
+                "marketing": ["marketing", "advertis", "promotion", "campaign", "social media", "facebook", "instagram"],
+                "sales": ["sales", "new member", "lead", "prospect", "conversion", "revenue", "join"],
+                "finance": ["financ", "money", "profit", "expense", "cost", "revenue", "budget", "accounting"],
+                "operations": ["operations", "schedule", "class", "utilization", "capacity", "booking"],
+                "hr": ["hr", "staff", "coach", "employee", "trainer", "hiring", "recruitment"],
+                "membership": ["membership", "member", "subscription", "retention", "churn"],
+                "attendance": ["attendance", "show up", "class size", "popular time", "busy class"],
+                "growth": ["growth", "expand", "increase", "strategy", "projection"],
+                "expansion": ["expansion", "location", "new studio", "open another", "second location"],
+                "competitors": ["competitor", "competition", "other gym", "other studio"]
+            };
+            
+            // Function to get response based on user input
+            function getResponse(input) {
+                const inputLower = input.toLowerCase();
+                
+                // Check for keyword matches
+                for (const [category, keywords] of Object.entries(keywordMap)) {
+                    if (keywords.some(keyword => inputLower.includes(keyword))) {
+                        return demoResponses[category];
+                    }
+                }
+                
+                return demoResponses["default"];
+            }
+            
+            // Function to add message to chat
+            function addMessage(content, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('demo-message');
+                messageDiv.classList.add(isUser ? 'demo-user-message' : 'demo-assistant-message');
+                messageDiv.textContent = content;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.classList.add('demo-typing');
+                typingDiv.id = 'typing-indicator';
+                
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('demo-typing-dot');
+                    typingDiv.appendChild(dot);
+                }
+                
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Function to remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // Function to handle sending a message
+            function sendMessage() {
+                const userMessage = userInput.value.trim();
+                if (userMessage === '') return;
+                
+                // Add user message to chat
+                addMessage(userMessage, true);
+                userInput.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate AI thinking time
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    
+                    // Get and add AI response
+                    const response = getResponse(userMessage);
+                    addMessage(response);
+                }, 1500);
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
             });
             
-            mockup.addEventListener('mouseleave', () => {
-                mockup.style.transform = 'perspective(1000px) rotateX(2deg)';
-            });
-        }
+            // Auto-focus the input
+            userInput.focus();
+        });
     </script>
 </body>
 </html>
