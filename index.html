@@ -404,15 +404,20 @@
             }
         }
         
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Agent response styling */
+        .agent-response-container {
+          display: flex;
+          flex-direction: column;
+          align-self: flex-start;
+          max-width: 80%;
+          margin-bottom: 15px;
+        }
+        
+        .agent-identifier {
+          font-size: 0.75rem;
+          margin-bottom: 4px;
+          font-weight: bold;
+          padding-left: 12px;
         }
         
         /* Button */
@@ -547,6 +552,210 @@
         }
         
         .problem-item li::marker {
+            color: var(--primary);
+        }
+
+        /* Market Validation Section */
+        .stat-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .stat-card {
+            background-color: var(--dark-light);
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            min-width: 250px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        
+        .stat-desc {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-source {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: auto;
+        }
+        
+        .trend-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin: 50px 0;
+            justify-content: center;
+        }
+        
+        .trend-column {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .trend-item {
+            background-color: var(--dark-light);
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .trend-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .trend-item h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .trend-item h3 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .trend-item p {
+            margin-bottom: 15px;
+        }
+        
+        .trend-item .source {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-align: right;
+        }
+        
+        .growth-chart {
+            width: 100%;
+            height: 300px;
+            background-color: var(--dark-light);
+            border-radius: 14px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .growth-line {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            width: calc(100% - 100px);
+            height: 200px;
+        }
+        
+        .growth-line svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .growth-bar {
+            display: flex;
+            align-items: flex-end;
+            height: 250px;
+            margin-top: 20px;
+        }
+        
+        .bar {
+            flex: 1;
+            background-color: var(--primary);
+            margin: 0 10px;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: height 1s ease;
+        }
+        
+        .bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light);
+            font-weight: bold;
+        }
+
+        .bar:nth-child(1) {
+            height: 92px;
+        }
+
+        .bar:nth-child(2) {
+            height: 160px;
+        }
+
+        .bar:nth-child(3) {
+            height: 230px;
+        }
+        
+        .growth-labels {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        
+        .growth-label {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .quote-container {
+            background-color: var(--dark-light);
+            padding: 35px;
+            border-radius: 14px;
+            margin: 40px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .quote-container::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .quote-source {
+            text-align: right;
+            font-weight: bold;
             color: var(--primary);
         }
         
@@ -992,6 +1201,10 @@
             .demo-chat-container {
                 max-width: 90%;
             }
+
+            .trend-column {
+                min-width: 100%;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1044,6 +1257,10 @@
             
             .cta p {
                 font-size: 1.1rem;
+            }
+
+            .stat-card {
+                min-width: 100%;
             }
         }
         
@@ -1101,6 +1318,25 @@
             animation: fadeIn 0.8s ease 0.6s forwards;
             opacity: 0;
         }
+
+        /* Line Chart Animation */
+        .line-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 3s ease-in-out forwards;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .dot {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in-out forwards;
+            animation-delay: 2.5s;
+        }
     </style>
 </head>
 <body>
@@ -1112,6 +1348,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#problem">Problem</a></li>
+                <li><a href="#market">Market</a></li>
                 <li><a href="#solution">Solution</a></li>
                 <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#benefits">Benefits</a></li>
@@ -1202,6 +1439,85 @@
                         <li>Makes expanding to additional studios extremely difficult</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Validation Section -->
+    <section id="market">
+        <div class="container">
+            <div class="section-header">
+                <h2>Market Validation</h2>
+            </div>
+            <p>The demand for AI-powered business automation is surging across the small business sector, validating the need for solutions like Trisha.AI. Our market research shows dramatic growth in adoption and interest:</p>
+
+            <div class="stat-container">
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-desc">of U.S. small businesses now use generative AI</div>
+                    <div class="stat-source">Source: U.S. Chamber of Commerce, 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2x</div>
+                    <div class="stat-desc">Increase in small business AI adoption from 2023 to 2024</div>
+                    <div class="stat-source">Source: U.S. Chamber of Commerce, 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60%</div>
+                    <div class="stat-desc">of small businesses plan to implement AI within the next 2 years</div>
+                    <div class="stat-source">Source: ColorWhistle Survey, 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">69%</div>
+                    <div class="stat-desc">of small e-commerce businesses using AI report improved efficiency</div>
+                    <div class="stat-source">Source: ColorWhistle, 2024</div>
+                </div>
+            </div>
+
+            <div class="growth-chart">
+                <h3 style="text-align: center; margin-bottom: 20px;">Small Business AI Adoption Growth</h3>
+                <div class="growth-bar">
+                    <div class="bar" data-value="23%"></div>
+                    <div class="bar" data-value="40%"></div>
+                    <div class="bar" data-value="60%"></div>
+                </div>
+                <div class="growth-labels">
+                    <div class="growth-label">2023</div>
+                    <div class="growth-label">2024</div>
+                    <div class="growth-label">2025 (Projected)</div>
+                </div>
+            </div>
+
+            <div class="trend-container">
+                <div class="trend-column">
+                    <div class="trend-item">
+                        <h3><i class="fas fa-comments"></i>Growing Community Buzz</h3>
+                        <p>Small business owners are actively discussing AI automation online. A February 2023 post in r/Entrepreneur received 73 comments about AI tools, but by February 2025, similar posts garner 230+ comments from owners sharing their AI use cases.</p>
+                        <p class="source">Source: Reddit r/smallbusiness, r/Entrepreneur</p>
+                    </div>
+                    <div class="trend-item">
+                        <h3><i class="fas fa-search"></i>Surging Search Interest</h3>
+                        <p>Searches for "AI automation" hit their peak in mid-2024, with sustained interest continuing at 70-80% of peak levels. Business-focused queries like "AI tools for small business" show consistent growth.</p>
+                        <p class="source">Source: Google Trends, 2023-2025</p>
+                    </div>
+                </div>
+                <div class="trend-column">
+                    <div class="trend-item">
+                        <h3><i class="fas fa-chart-line"></i>Demographic Adoption</h3>
+                        <p>Younger business owners are leading AI adoption - 68% of millennial/Gen Z small-business owners use AI, versus 45% of Gen X and boomers. Very small businesses are rapidly catching up to larger companies in AI implementation.</p>
+                        <p class="source">Source: Emerging Tech Brew, U.S. Census Bureau, 2024</p>
+                    </div>
+                    <div class="trend-item">
+                        <h3><i class="fas fa-lightbulb"></i>Strategic Priority</h3>
+                        <p>Industry analysts describe AI-driven automation as a strategic priority for small firms. 77% of small business owners plan to adopt emerging technologies like AI to drive growth and efficiency.</p>
+                        <p class="source">Source: U.S. Chamber of Commerce, American Express, 2024</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-container">
+                <p class="quote-text">"For small businesses, 2025 will be defined by innovation, leaning deeper into artificial intelligence... as essential tools for future-proofing their businesses."</p>
+                <p class="quote-source">— American Express Small Business Report, 2024</p>
             </div>
         </div>
     </section>
@@ -1471,189 +1787,659 @@
         </div>
     </footer>
 
+    <!-- Trisha.AI Agent Services -->
     <script>
-        // Initialize Mermaid diagram
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            securityLevel: 'loose',
-            fontFamily: 'Montserrat'
-        });
+    /**
+     * Trisha.AI - Frontend Agent Services
+     * Browser-compatible implementation of the agent services for the Trisha.AI website
+     */
+
+    // Main Trisha.AI namespace
+    const TrishaAI = (function() {
+      // Utility function to simulate async delay
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+      // Marketing Service (CMO Agent)
+      const marketingService = {
+        /**
+         * Create a social media campaign
+         * @param {Object} campaignData - Campaign details
+         * @returns {Object} - Created campaign
+         */
+        createCampaign: async (campaignData) => {
+          console.log('Creating new marketing campaign', campaignData);
+          
+          // Mock implementation - in a real system, this would interact with Facebook/Instagram APIs
+          const campaign = {
+            id: `campaign-${Date.now()}`,
+            name: campaignData.name || 'Untitled Campaign',
+            platform: campaignData.platform || 'facebook',
+            budget: campaignData.budget || 100,
+            audience: campaignData.audience || 'local',
+            status: 'draft',
+            createdAt: new Date().toISOString()
+          };
+          
+          // Simulate processing delay
+          await delay(300);
+          
+          return campaign;
+        },
         
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        /**
+         * Get campaign performance metrics
+         * @param {string} campaignId - ID of the campaign
+         * @returns {Object} - Campaign performance metrics
+         */
+        getCampaignMetrics: async (campaignId) => {
+          console.log('Retrieving campaign metrics', campaignId);
+          
+          // Mock implementation - in a real system, this would fetch data from Facebook/Instagram APIs
+          const metrics = {
+            campaignId,
+            impressions: Math.floor(Math.random() * 10000) + 1000,
+            clicks: Math.floor(Math.random() * 500) + 50,
+            conversions: Math.floor(Math.random() * 50) + 5,
+            ctr: (Math.random() * 5 + 1).toFixed(2) + '%',
+            costPerClick: '$' + (Math.random() * 2 + 0.5).toFixed(2),
+            roi: (Math.random() * 300 + 100).toFixed(2) + '%',
+            lastUpdated: new Date().toISOString()
+          };
+          
+          // Simulate processing delay
+          await delay(200);
+          
+          return metrics;
+        },
         
-        // Scroll animation function
-        const animateOnScroll = () => {
-            const items = document.querySelectorAll('.problem-item, .agent-item, .benefit-item, .roadmap-item');
-            
-            items.forEach(item => {
-                const itemPosition = item.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (itemPosition < screenPosition) {
-                    item.classList.add('animated');
-                }
-            });
-        };
+        /**
+         * Generate local outreach ideas
+         * @param {Object} parameters - Parameters for idea generation
+         * @returns {Array} - List of outreach ideas
+         */
+        generateOutreachIdeas: async (parameters) => {
+          console.log('Generating local outreach ideas', parameters);
+          
+          // Mock implementation - in a real system, this would use demographic data and AI
+          const ideas = [
+            {
+              id: 'idea-1',
+              title: 'Partner with Local Businesses',
+              description: 'Create cross-promotion deals with nearby businesses like health food stores, athletic wear shops, and corporate offices.',
+              estimatedReach: '500-1000 potential members',
+              difficulty: 'Medium',
+              costEstimate: '$300-500'
+            },
+            {
+              id: 'idea-2',
+              title: 'Community Fitness Challenge',
+              description: 'Organize a 30-day community fitness challenge with prizes and special membership offers for participants.',
+              estimatedReach: '1000-2000 potential members',
+              difficulty: 'High',
+              costEstimate: '$1000-1500'
+            },
+            {
+              id: 'idea-3',
+              title: 'Local Influencer Partnerships',
+              description: 'Partner with local fitness influencers for studio promotion and special events.',
+              estimatedReach: '2000-5000 potential members',
+              difficulty: 'Medium',
+              costEstimate: '$500-1000'
+            },
+            {
+              id: 'idea-4',
+              title: 'Corporate Wellness Programs',
+              description: 'Develop corporate wellness packages for local businesses.',
+              estimatedReach: '1000-3000 potential members',
+              difficulty: 'Medium',
+              costEstimate: '$200-400'
+            },
+            {
+              id: 'idea-5',
+              title: 'Seasonal Promotion Events',
+              description: 'Create themed workout events aligned with local seasonal activities and holidays.',
+              estimatedReach: '500-1500 potential members',
+              difficulty: 'Low',
+              costEstimate: '$300-700'
+            }
+          ];
+          
+          // Simulate processing delay
+          await delay(500);
+          
+          return ideas;
+        },
         
-        // Set initial styles for animation
-        document.querySelectorAll('.problem-item, .agent-item, .benefit-item, .roadmap-item').forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        });
-        
-        // Add class for animated items
-        document.addEventListener('DOMContentLoaded', () => {
-            const style = document.createElement('style');
-            style.textContent = `
-                .animated {
-                    opacity: 1 !important;
-                    transform: translateY(0) !important;
-                }
-            `;
-            document.head.appendChild(style);
-        });
-        
-        // Run animation on load and scroll
-        window.addEventListener('load', animateOnScroll);
-        window.addEventListener('scroll', animateOnScroll);
-        
-        // Interactive Chat Demo
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatMessages = document.getElementById('chat-messages');
-            const userInput = document.getElementById('user-input');
-            const sendButton = document.getElementById('send-button');
-            
-            // Sample responses for the demo
-            const demoResponses = {
-                "default": "I don't have specific information about that yet, but as your AI assistant, I'd be happy to help you with marketing, sales, finances, operations, or HR questions for your Orangetheory studio.",
-                
-                "marketing": "Based on your studio's data, your most successful marketing channel has been Instagram, generating 42% of new leads. Your latest promotion had a 28% conversion rate, which is 5% higher than your average. I'd recommend increasing your Instagram ad budget by 15% and targeting the 25-34 age demographic that's showing the highest engagement.",
-                
-                "sales": "This week you've added 24 new members, which is a 15% increase from last week. Your current lead-to-member conversion rate is 32%, above the OTF network average of 27%. The premium membership tier is showing the strongest growth at 18% month-over-month.",
-                
-                "finance": "Your studio's current revenue is $92,450 this month, up 8% from last month. Operating expenses are at $64,325, giving you a profit margin of 30.4%. Your largest expense category remains staffing at 42% of total costs, which is in line with Orangetheory benchmarks.",
-                
-                "operations": "Your class utilization is currently at 82% capacity, with the 5:30PM weekday classes consistently at 95%+ attendance. I've noticed that Tuesday morning classes have dropped to 65% capacity - you might consider a special promotion for these time slots to boost attendance.",
-                
-                "hr": "Your current staff turnover rate is 14% annually, below the fitness industry average of 22%. Coach satisfaction surveys show 4.2/5 average rating, with schedule flexibility being the most appreciated benefit. You have 3 coaches due for certification renewal next month.",
-                
-                "membership": "Your current active membership is 782 members. Retention rate stands at 87% for the trailing 3 months. The most common membership type is the 8 classes/month package (42% of members), followed by unlimited (38%).",
-                
-                "attendance": "Your highest attendance days are Monday and Wednesday. The 6:30AM and 5:30PM classes consistently have the highest attendance rates. I'm seeing an emerging trend of increased weekend attendance, up 12% compared to last quarter.",
-                
-                "growth": "Based on your current growth trajectory and local market analysis, your studio has potential to increase membership by 15-20% in the next 12 months. The strongest growth opportunity appears to be in the corporate membership segment.",
-                
-                "expansion": "If you're considering opening another location, the data suggests the Westshore area would be optimal based on demographic analysis and minimal competition. Estimated initial investment would be $450K-550K with projected break-even at 14 months.",
-                
-                "competitors": "Your main local competitors have increased their marketing spend by approximately 22% in the last quarter. They're primarily focusing on lower intro rates, while your studio maintains better retention metrics and higher customer satisfaction scores."
+        /**
+         * Process a marketing query
+         * @param {string} query - Natural language query
+         * @returns {Object} - Response to the query
+         */
+        processQuery: async (query) => {
+          console.log('Processing marketing query', query);
+          
+          // Mock implementation - in a real system, this would use NLP and AI
+          let response;
+          
+          if (query.toLowerCase().includes('campaign')) {
+            response = {
+              type: 'campaign_info',
+              message: 'I can help you create and manage social media campaigns for your Orangetheory studio.',
+              suggestedActions: [
+                'Create a new campaign',
+                'View campaign performance',
+                'Optimize existing campaigns'
+              ]
             };
-            
-            // Keywords to match in user input
-            const keywordMap = {
-                "marketing": ["marketing", "advertis", "promotion", "campaign", "social media", "facebook", "instagram"],
-                "sales": ["sales", "new member", "lead", "prospect", "conversion", "revenue", "join"],
-                "finance": ["financ", "money", "profit", "expense", "cost", "revenue", "budget", "accounting"],
-                "operations": ["operations", "schedule", "class", "utilization", "capacity", "booking"],
-                "hr": ["hr", "staff", "coach", "employee", "trainer", "hiring", "recruitment"],
-                "membership": ["membership", "member", "subscription", "retention", "churn"],
-                "attendance": ["attendance", "show up", "class size", "popular time", "busy class"],
-                "growth": ["growth", "expand", "increase", "strategy", "projection"],
-                "expansion": ["expansion", "location", "new studio", "open another", "second location"],
-                "competitors": ["competitor", "competition", "other gym", "other studio"]
+          } else if (query.toLowerCase().includes('outreach') || query.toLowerCase().includes('local')) {
+            response = {
+              type: 'outreach_ideas',
+              message: 'Here are some hyper-local outreach ideas for your studio:',
+              ideas: await marketingService.generateOutreachIdeas({ location: 'Local Area' })
             };
-            
-            // Function to get response based on user input
-            function getResponse(input) {
-                const inputLower = input.toLowerCase();
-                
-                // Check for keyword matches
-                for (const [category, keywords] of Object.entries(keywordMap)) {
-                    if (keywords.some(keyword => inputLower.includes(keyword))) {
-                        return demoResponses[category];
-                    }
-                }
-                
-                return demoResponses["default"];
-            }
-            
-            // Function to add message to chat
-            function addMessage(content, isUser = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('demo-message');
-                messageDiv.classList.add(isUser ? 'demo-user-message' : 'demo-assistant-message');
-                messageDiv.textContent = content;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            
-            // Function to show typing indicator
-            function showTypingIndicator() {
-                const typingDiv = document.createElement('div');
-                typingDiv.classList.add('demo-typing');
-                typingDiv.id = 'typing-indicator';
-                
-                for (let i = 0; i < 3; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('demo-typing-dot');
-                    typingDiv.appendChild(dot);
-                }
-                
-                chatMessages.appendChild(typingDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            
-            // Function to remove typing indicator
-            function removeTypingIndicator() {
-                const typingIndicator = document.getElementById('typing-indicator');
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
-            }
-            
-            // Function to handle sending a message
-            function sendMessage() {
-                const userMessage = userInput.value.trim();
-                if (userMessage === '') return;
-                
-                // Add user message to chat
-                addMessage(userMessage, true);
-                userInput.value = '';
-                
-                // Show typing indicator
-                showTypingIndicator();
-                
-                // Simulate AI thinking time
-                setTimeout(() => {
-                    removeTypingIndicator();
-                    
-                    // Get and add AI response
-                    const response = getResponse(userMessage);
-                    addMessage(response);
-                }, 1500);
-            }
-            
-            // Event listeners
-            sendButton.addEventListener('click', sendMessage);
-            userInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
+          } else if (query.toLowerCase().includes('social media') || query.toLowerCase().includes('facebook') || query.toLowerCase().includes('instagram')) {
+            response = {
+              type: 'social_media_advice',
+              message: 'I can help optimize your social media presence for Orangetheory Fitness.',
+              recommendations: [
+                'Post workout highlights 3-4 times per week',
+                'Share member success stories (with permission)',
+                'Promote special events and challenges',
+                'Engage with local community content',
+                'Use location-specific hashtags'
+              ]
+            };
+          } else {
+            response = {
+              type: 'general_marketing',
+              message: 'I can assist with various marketing tasks for your Orangetheory studio.',
+              capabilities: [
+                'Social media campaign management',
+                'Local outreach strategy',
+                'Marketing performance analytics',
+                'Content creation suggestions',
+                'Promotional event planning'
+              ]
+            };
+          }
+          
+          // Simulate processing delay
+          await delay(400);
+          
+          return response;
+        }
+      };
+
+      // Sales Service (CSO Agent)
+      const salesService = {
+        /**
+         * Get membership metrics
+         * @returns {Object} - Membership metrics
+         */
+        getMembershipMetrics: async () => {
+          console.log('Retrieving membership metrics');
+          
+          // Mock implementation - would connect to Mindbody
+          const metrics = {
+            totalActiveMembers: 782,
+            newMembersThisMonth: 24,
+            churnRateThisMonth: '3.2%',
+            membershipTypes: [
+              { type: '8 Classes/Month', count: 328, percentage: '42%' },
+              { type: 'Unlimited', count: 297, percentage: '38%' },
+              { type: '4 Classes/Month', count: 157, percentage: '20%' }
+            ],
+            averageMembershipLength: '9.3 months',
+            mostPopularMembershipTime: '5:30 PM Weekdays',
+            memberRetentionRate: '87%',
+            lastUpdated: new Date().toISOString()
+          };
+          
+          // Simulate processing delay
+          await delay(350);
+          
+          return metrics;
+        },
+        
+        /**
+         * Get all active leads
+         * @param {Object} filters - Optional filters
+         * @returns {Array} - List of leads
+         */
+        getActiveLeads: async (filters = {}) => {
+          console.log('Retrieving active leads', filters);
+          
+          // Mock implementation - would connect to Orangebook
+          const leads = [];
+          const statuses = ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Negotiating'];
+          const sources = ['Website', 'Referral', 'Walk-in', 'Social Media', 'Event'];
+          
+          for (let i = 0; i < 12; i++) {
+            leads.push({
+              id: `lead-${1000 + i}`,
+              name: `Lead ${i + 1}`,
+              email: `lead${i + 1}@example.com`,
+              phone: `(555) ${100 + i}-${4000 + i}`,
+              source: sources[Math.floor(Math.random() * sources.length)],
+              status: statuses[Math.floor(Math.random() * statuses.length)],
+              interestLevel: ['Low', 'Medium', 'High'][Math.floor(Math.random() * 3)],
+              createdAt: new Date(Date.now() - Math.floor(Math.random() * 1000000000)).toISOString(),
+              lastContactedAt: new Date(Date.now() - Math.floor(Math.random() * 10000000)).toISOString()
             });
+          }
+          
+          // Apply filters if any
+          let filteredLeads = [...leads];
+          if (filters.status) {
+            filteredLeads = filteredLeads.filter(lead => lead.status === filters.status);
+          }
+          if (filters.source) {
+            filteredLeads = filteredLeads.filter(lead => lead.source === filters.source);
+          }
+          
+          // Simulate processing delay
+          await delay(300);
+          
+          return filteredLeads;
+        },
+        
+        /**
+         * Process a sales query
+         * @param {string} query - Natural language query
+         * @returns {Object} - Response to the query
+         */
+        processQuery: async (query) => {
+          console.log('Processing sales query', query);
+          
+          // Mock implementation - in a real system, this would use NLP and AI
+          let response;
+          
+          if (query.toLowerCase().includes('lead') || query.toLowerCase().includes('prospect')) {
+            response = {
+              type: 'lead_management',
+              message: 'I can help you manage your leads and prospects.',
+              suggestedActions: [
+                'View active leads',
+                'Update lead status',
+                'Create follow-up tasks',
+                'Get lead conversion analytics'
+              ]
+            };
+          } else if (query.toLowerCase().includes('member') || query.toLowerCase().includes('membership')) {
+            response = {
+              type: 'membership_info',
+              message: 'Here\'s an overview of your current membership status:',
+              metrics: await salesService.getMembershipMetrics()
+            };
+          } else if (query.toLowerCase().includes('conversion') || query.toLowerCase().includes('rate')) {
+            response = {
+              type: 'conversion_analytics',
+              message: 'Your lead-to-member conversion analytics:',
+              metrics: {
+                overallConversionRate: '32%',
+                leadSourcePerformance: [
+                  { source: 'Website', conversionRate: '28%' },
+                  { source: 'Social Media', conversionRate: '35%' },
+                  { source: 'Referral', conversionRate: '47%' },
+                  { source: 'Walk-in', conversionRate: '31%' },
+                  { source: 'Event', conversionRate: '39%' }
+                ],
+                averageTimeToConversion: '12 days',
+                mostEffectiveFollowUpChannel: 'SMS'
+              }
+            };
+          } else {
+            response = {
+              type: 'general_sales',
+              message: 'I can assist with various sales and membership tasks for your Orangetheory studio.',
+              capabilities: [
+                'Lead management and follow-up',
+                'Membership analytics and reporting',
+                'Conversion rate optimization',
+                'Member retention strategies',
+                'Sales process automation'
+              ]
+            };
+          }
+          
+          // Simulate processing delay
+          await delay(300);
+          
+          return response;
+        }
+      };
+
+      // Finance Service (CFO Agent)
+      const financeService = {
+        /**
+         * Get financial summary
+         * @param {string} period - Time period (e.g., 'month', 'quarter', 'year')
+         * @returns {Object} - Financial summary
+         */
+        getFinancialSummary: async (period = 'month') => {
+          console.log('Retrieving financial summary', period);
+          
+          // Mock implementation - would connect to Ceterus
+          const currentMonthRevenue = 92450;
+          const currentMonthExpenses = 64325;
+          const lastMonthRevenue = 85600;
+          
+          const summary = {
+            period,
+            revenue: {
+              total: currentMonthRevenue,
+              changeFromPrevious: `${((currentMonthRevenue - lastMonthRevenue) / lastMonthRevenue * 100).toFixed(1)}%`,
+              breakdown: [
+                { category: 'Membership Dues', amount: 78200, percentage: '84.6%' },
+                { category: 'Retail Sales', amount: 8750, percentage: '9.5%' },
+                { category: 'Other Income', amount: 5500, percentage: '5.9%' }
+              ]
+            },
+            expenses: {
+              total: currentMonthExpenses,
+              breakdown: [
+                { category: 'Staff & Payroll', amount: 27016, percentage: '42%' },
+                { category: 'Rent & Facilities', amount: 18010, percentage: '28%' },
+                { category: 'Marketing', amount: 9649, percentage: '15%' },
+                { category: 'Equipment & Maintenance', amount: 5789, percentage: '9%' },
+                { category: 'Administrative', amount: 3861, percentage: '6%' }
+              ]
+            },
+            profitMargin: `${((currentMonthRevenue - currentMonthExpenses) / currentMonthRevenue * 100).toFixed(1)}%`,
+            netProfit: currentMonthRevenue - currentMonthExpenses,
+            cashOnHand: 125000,
+            lastUpdated: new Date().toISOString()
+          };
+          
+          // Simulate processing delay
+          await delay(400);
+          
+          return summary;
+        },
+        
+        /**
+         * Get revenue forecast
+         * @param {number} months - Number of months to forecast
+         * @returns {Object} - Revenue forecast
+         */
+        getRevenueForecast: async (months = 3) => {
+          console.log('Generating revenue forecast', months);
+          
+          // Mock implementation - would use historical data from Ceterus
+          const currentRevenue = 92450;
+          const forecast = {
+            currentMonth: currentRevenue,
+            forecast: []
+          };
+          
+          for (let i = 1; i <= months; i++) {
+            // Simulate some realistic growth and seasonality
+            const seasonalFactor = 1 + (0.05 * Math.sin(Math.PI * i / 6)); // Seasonal variation
+            const growthFactor = 1 + (0.02 * i); // Growth trend
+            const randomFactor = 0.95 + (Math.random() * 0.1); // Random variation
             
-            // Auto-focus the input
-            userInput.focus();
-        });
-    </script>
-</body>
-</html>
+            const projectedRevenue = Math.round(currentRevenue * seasonalFactor * growthFactor * randomFactor);
+            
+            forecast.forecast.push({
+              month: i,
+              projectedRevenue,
+              changePct: `${((projectedRevenue / currentRevenue - 1) * 100).toFixed(1)}%`,
+              confidence: `${95 - (i * 5)}%` // Confidence decreases with time
+            });
+          }
+          
+          // Simulate processing delay
+          await delay(500);
+          
+          return forecast;
+        },
+        
+        /**
+         * Process a finance query
+         * @param {string} query - Natural language query
+         * @returns {Object} - Response to the query
+         */
+        processQuery: async (query) => {
+          console.log('Processing finance query', query);
+          
+          // Mock implementation - in a real system, this would use NLP and AI
+          let response;
+          
+          if (query.toLowerCase().includes('revenue') || query.toLowerCase().includes('income')) {
+            response = {
+              type: 'revenue_info',
+              message: 'Here\'s an overview of your studio\'s revenue:',
+              data: (await financeService.getFinancialSummary('month')).revenue
+            };
+          } else if (query.toLowerCase().includes('expense') || query.toLowerCase().includes('cost')) {
+            response = {
+              type: 'expense_info',
+              message: 'Here\'s a breakdown of your studio\'s expenses:',
+              data: {
+                totalExpenses: 64325,
+                breakdown: [
+                  { category: 'Staff & Payroll', amount: 27016, percentage: '42%' },
+                  { category: 'Rent & Facilities', amount: 18010, percentage: '28%' },
+                  { category: 'Marketing', amount: 9649, percentage: '15%' },
+                  { category: 'Equipment & Maintenance', amount: 5789, percentage: '9%' },
+                  { category: 'Administrative', amount: 3861, percentage: '6%' }
+                ]
+              }
+            };
+          } else if (query.toLowerCase().includes('forecast') || query.toLowerCase().includes('projection')) {
+            response = {
+              type: 'revenue_forecast',
+              message: 'Here\'s your projected revenue for the next few months:',
+              data: await financeService.getRevenueForecast(3)
+            };
+          } else if (query.toLowerCase().includes('profit') || query.toLowerCase().includes('margin')) {
+            const summary = await financeService.getFinancialSummary('month');
+            response = {
+              type: 'profit_analysis',
+              message: `Your current profit margin is ${summary.profitMargin} with a net profit of $${summary.netProfit.toLocaleString()}.`,
+              data: {
+                profitMargin: summary.profitMargin,
+                netProfit: summary.netProfit,
+                revenueTotal: summary.revenue.total,
+                expenseTotal: summary.expenses.total,
+                benchmarkComparison: {
+                  industryAverage: '22%',
+                  otfAverage: '25%',
+                  yourPerformance: 'Above Average'
+                }
+              }
+            };
+          } else {
+            response = {
+              type: 'general_finance',
+              message: 'I can assist with various financial tasks for your Orangetheory studio.',
+              capabilities: [
+                'Financial performance analysis',
+                'Revenue and expense tracking',
+                'Profit margin optimization',
+                'Budgeting and forecasting',
+                'Expense breakdown and optimization'
+              ]
+            };
+          }
+          
+          // Simulate processing delay
+          await delay(350);
+          
+          return response;
+        }
+      };
+
+      // Operations Service (COO Agent)
+      const operationsService = {
+        /**
+         * Get class schedule
+         * @param {Object} filters - Optional filters (date, coach, etc.)
+         * @returns {Array} - List of classes
+         */
+        getClassSchedule: async (filters = {}) => {
+          console.log('Retrieving class schedule', filters);
+          
+          // Mock implementation - would connect to Mindbody
+          const classes = [];
+          const classTypes = ['60 Minute', '45 Minute', '90 Minute', 'Lift 45'];
+          const coaches = ['Sarah Johnson', 'Mike Peters', 'Jessica Wong', 'Carlos Rodriguez', 'Aisha Williams'];
+          
+          // Current date
+          const date = filters.date ? new Date(filters.date) : new Date();
+          const startHour = 5; // 5 AM
+          
+          // Generate classes for the day
+          for (let hour = startHour; hour < 21; hour++) { // 5 AM to 8 PM
+            // Not all hours have classes
+            if (Math.random() > 0.3) {
+              const classStartTime = new Date(date);
+              classStartTime.setHours(hour, Math.random() > 0.5 ? 0 : 30, 0, 0);
+              
+              const classType = classTypes[Math.floor(Math.random() * classTypes.length)];
+              const coach = coaches[Math.floor(Math.random() * coaches.length)];
+              
+              // Calculate capacity and bookings
+              const capacity = 24;
+              const bookings = Math.floor(Math.random() * (capacity + 1));
+              
+              classes.push({
+                id: `class-${date.toISOString().split('T')[0]}-${hour}`,
+                type: classType,
+                coach,
+                startTime: classStartTime.toISOString(),
+                duration: classType.includes('90') ? 90 : (classType.includes('45') ? 45 : 60),
+                capacity,
+                bookings,
+                utilization: `${Math.round(bookings / capacity * 100)}%`,
+                waitlist: bookings >= capacity ? Math.floor(Math.random() * 5) : 0
+              });
+            }
+          }
+          
+          // Sort classes by start time
+          classes.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+          
+          // Apply filters if specified
+          let filteredClasses = [...classes];
+          if (filters.coach) {
+            filteredClasses = filteredClasses.filter(c => c.coach === filters.coach);
+          }
+          if (filters.type) {
+            filteredClasses = filteredClasses.filter(c => c.type === filters.type);
+          }
+          
+          // Simulate processing delay
+          await delay(350);
+          
+          return filteredClasses;
+        },
+        
+        /**
+         * Get studio utilization metrics
+         * @param {string} timeframe - Time period (e.g., 'day', 'week', 'month')
+         * @returns {Object} - Utilization metrics
+         */
+        getUtilizationMetrics: async (timeframe = 'week') => {
+          console.log('Retrieving utilization metrics', timeframe);
+          
+          // Mock implementation - would connect to Mindbody & Studio Portal
+          const metrics = {
+            timeframe,
+            overallUtilization: '82%',
+            totalClasses: 110,
+            totalCapacity: 2640, // 110 classes * 24 capacity
+            totalBookings: 2165,
+            peakHours: [
+              { time: '5:30 AM', utilization: '95%' },
+              { time: '6:30 AM', utilization: '92%' },
+              { time: '5:30 PM', utilization: '98%' },
+              { time: '6:30 PM', utilization: '91%' }
+            ],
+            lowUtilizationHours: [
+              { time: '1:30 PM', utilization: '65%' },
+              { time: '2:30 PM', utilization: '68%' },
+              { time: '11:30 AM', utilization: '72%' }
+            ],
+            dayBreakdown: [
+              { day: 'Monday', utilization: '87%' },
+              { day: 'Tuesday', utilization: '80%' },
+              { day: 'Wednesday', utilization: '89%' },
+              { day: 'Thursday', utilization: '81%' },
+              { day: 'Friday', utilization: '79%' },
+              { day: 'Saturday', utilization: '86%' },
+              { day: 'Sunday', utilization: '74%' }
+            ],
+            waitlistTotal: 87,
+            mostWaitlisted: '5:30 PM Weekdays'
+          };
+          
+          // Simulate processing delay
+          await delay(400);
+          
+          return metrics;
+        },
+        
+        /**
+         * Process an operations query
+         * @param {string} query - Natural language query
+         * @returns {Object} - Response to the query
+         */
+        processQuery: async (query) => {
+          console.log('Processing operations query', query);
+          
+          // Mock implementation - in a real system, this would use NLP and AI
+          let response;
+          
+          if (query.toLowerCase().includes('schedule') || query.toLowerCase().includes('class')) {
+            response = {
+              type: 'class_schedule',
+              message: 'Here\'s your class schedule:',
+              data: await operationsService.getClassSchedule({ date: new Date() })
+            };
+          } else if (query.toLowerCase().includes('utilization') || query.toLowerCase().includes('attendance')) {
+            response = {
+              type: 'utilization_metrics',
+              message: 'Here are your studio utilization metrics:',
+              data: await operationsService.getUtilizationMetrics('week')
+            };
+          } else if (query.toLowerCase().includes('equipment') || query.toLowerCase().includes('inventory')) {
+            response = {
+              type: 'inventory_status',
+              message: 'Here\'s your current inventory status:',
+              data: {
+                workoutEquipment: [
+                  { name: 'Treadmills', total: 12, operational: 12 },
+                  { name: 'Rowing Machines', total: 12, operational: 11 },
+                  { name: 'Weight Stations', total: 12, operational: 12 }
+                ],
+                consumables: [
+                  { name: 'Cleaning Wipes', inStock: 650, reorderPoint: 300 },
+                  { name: 'Water Bottles', inStock: 42, reorderPoint: 40 },
+                  { name: 'Towels', inStock: 180, reorderPoint: 50 }
+                ],
+                alerts: [
+                  'Row Machine #8 due for maintenance in 3 days',
+                  'Water bottles approaching reorder point'
+                ]
+              }
+            };
+          } else if (query.toLowerCase().includes('optimize') || query.toLowerCase().includes('improve')) {
+            response = {
+              type: 'schedule_optimization',
+              message: 'I\'ve analyzed your schedule and have some optimization recommendations:',
+              recommendations: [
+                {
+                  type: 'Add Class',
+                  details: 'Add a 5:30 AM class on Tuesday (currently only 6:30 AM available)',
+                  projectedImpact: '+3% overall utilization'
+                },
+                {
+                  type: 'Modify Time',
+                  details: 'Move 1:30 PM Tuesday class to 12:30 PM',
+                  projectedImpact: '+2% overall utilization'
+                },
+                {
+                  type: 'Remove Class',
+                  details: 'Remove 11:30 AM Sunday class',
+                  projectedImpact: 'Minimal utilization impact, reduced operational costs'
