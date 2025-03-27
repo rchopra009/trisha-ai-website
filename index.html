@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trisha.AI - Your AI Business Assistant</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Mermaid for the architecture diagram -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #FF661F;
+            --primary-light: #FF8C42;
+            --dark: #1a1a1a;
+            --dark-medium: #262626;
+            --dark-light: #333333;
+            --light: #f8f9fa;
+            --gray: #666666;
+            --mcp-color: #9966FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(38, 38, 38, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+            margin-bottom: 0;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .logos-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .logo-divider {
+            height: 40px;
+            width: 2px;
+            background-color: var(--primary);
+            margin: 0 20px;
+        }
+        
+        .otf-logo {
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .trisha-logo {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .hero-circles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .circle {
+            position: absolute;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            animation: pulse 8s infinite;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            animation: pulse 12s infinite;
+            animation-delay: 1s;
+        }
+        
+        .circle-3 {
+            width: 700px;
+            height: 700px;
+            animation: pulse 16s infinite;
+            animation-delay: 2s;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.05;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.05;
+            }
+        }
+        
+        .mockup-container {
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 14px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.5s;
+        }
+        
+        .mockup-container:hover {
+            transform: perspective(1000px) rotateX(0);
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(255, 102, 31, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 102, 31, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(255, 102, 31, 0.4);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        /* Sections */
+        section {
+            padding: 120px 0;
+        }
+        
+        section:nth-child(odd) {
+            background-color: var(--dark-medium);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .problem-item {
+            background-color: var(--dark-light);
+            padding: 35px;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .problem-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .problem-item h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .problem-item h3::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .problem-item ul {
+            list-style-position: outside;
+            padding-left: 20px;
+            flex-grow: 1;
+        }
+        
+        .problem-item li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .problem-item li::marker {
+            color: var(--primary);
+        }
+        
+        /* Solution Section */
+        .solution-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .solution-text {
+            margin-bottom: 50px;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+        
+        .solution-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .solution-heading {
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+            width: 100%;
+        }
+        
+        .agent-item {
+            background-color: var(--dark-light);
+            padding: 35px 25px;
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .agent-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .agent-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            background-color: rgba(255, 102, 31, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-item:hover .agent-icon {
+            background-color: rgba(255, 102, 31, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .agent-item h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .agent-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Architecture Section */
+        .architecture-container {
+            margin-top: 40px;
+            padding: 40px;
+            background-color: var(--dark-light);
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .mermaid {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 100%;
+            overflow-x: auto;
+            color: black;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .architecture-description {
+            margin-top: 40px;
+            line-height: 1.8;
+        }
+        
+        .architecture-description h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+        
+        .architecture-description p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .benefit-item {
+            background-color: var(--dark-light);
+            padding: 40px 30px;
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            background-color: rgba(255, 102, 31, 0.1);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover .benefit-icon {
+            background-color: rgba(255, 102, 31, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .benefit-item h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .benefit-item p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        /* Roadmap Section */
+        .roadmap {
+            position: relative;
+            max-width: 1000px;
+            margin: 70px auto 0;
+        }
+        
+        .roadmap::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .roadmap-item {
+            position: relative;
+            width: 50%;
+            padding: 40px 40px;
+        }
+        
+        .roadmap-item:nth-child(odd) {
+            left: 0;
+            padding-right: 60px;
+        }
+        
+        .roadmap-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+        
+        .roadmap-content {
+            background-color: var(--dark-light);
+            padding: 35px;
+            border-radius: 14px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .roadmap-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .roadmap-item:nth-child(odd) .roadmap-content::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid var(--dark-light);
+        }
+        
+        .roadmap-item:nth-child(even) .roadmap-content::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid var(--dark-light);
+        }
+        
+        .roadmap-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: -12px;
+            top: 45px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(255, 102, 31, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .roadmap-item:hover::after {
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 6px rgba(255, 102, 31, 0.3);
+        }
+        
+        .roadmap-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .roadmap-date {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .roadmap-title {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .roadmap-content ul {
+            list-style-position: outside;
+            padding-left: 20px;
+        }
+        
+        .roadmap-content li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .roadmap-content li::marker {
+            color: var(--primary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--dark), var(--dark-medium), var(--dark));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF661F' fill-opacity='0.05'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center center;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta h2 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+        
+        .cta p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-medium);
+            padding: 70px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 5px;
+            margin-right: 10px;
+        }
+        
+        .footer-otf-logo {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .footer-tagline {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact {
+            margin-top: 30px;
+            background-color: var(--dark-light);
+            padding: 30px;
+            border-radius: 14px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .footer-contact h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .footer-contact a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .agents-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .mockup-container {
+                max-width: 90%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap::after {
+                left: 40px;
+            }
+            
+            .roadmap-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .roadmap-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .roadmap-item:nth-child(odd) .roadmap-content::after,
+            .roadmap-item:nth-child(even) .roadmap-content::after {
+                display: none;
+            }
+            
+            .roadmap-item::after {
+                left: 30px;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .logos-container {
+                flex-direction: column;
+            }
+            
+            .logo-divider {
+                width: 40px;
+                height: 2px;
+                margin: 15px 0;
+            }
+            
+            .architecture-container {
+                padding: 20px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .fade-in-delay-1 {
+            animation: fadeIn 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-2 {
+            animation: fadeIn 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-3 {
+            animation: fadeIn 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Trisha.AI</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#contact" class="btn">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-circles">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="fade-in">Trisha.AI</h1>
+            <div class="logos-container fade-in-delay-1">
+                <div class="trisha-logo">Trisha.AI</div>
+                <div class="logo-divider"></div>
+                <div class="otf-logo">OTF</div>
+            </div>
+            <p class="fade-in-delay-2">Your AI Business Assistant for Transforming Small Business Operations</p>
+            <a href="#solution" class="btn fade-in-delay-3">Learn More</a>
+            
+            <div class="mockup-container fade-in-delay-3">
+                <!-- Interface Mockup SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                  <!-- Background -->
+                  <rect width="800" height="600" fill="#1a1a1a" rx="10" ry="10"/>
+                  
+                  <!-- Header -->
+                  <rect x="20" y="20" width="760" height="70" fill="#262626" rx="10" ry="10"/>
+                  <text x="50" y="65" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FF661F">Trisha.AI</text>
+                  <!-- OTF Logo -->
+                  <circle cx="730" cy="55" r="25" fill="#FF661F"/>
+                  <text x="730" cy="64" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">OTF</text>
+                  
+                  <!-- Main Chat Area -->
+                  <rect x="20" y="110" width="760" height="390" fill="#262626" rx="10" ry="10"/>
+                  
+                  <!-- Animated Background Elements -->
+                  <circle cx="400" cy="300" r="180" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.1"/>
+                  <circle cx="400" cy="300" r="120" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.15"/>
+                  <circle cx="400" cy="300" r="60" fill="none" stroke="#FF661F" stroke-width="1" opacity="0.2"/>
+                  
+                  <!-- User Question Bubble -->
+                  <rect x="400" y="170" width="340" height="60" fill="#333333" rx="10" ry="10"/>
+                  <text x="420" y="190" font-family="Arial, sans-serif" font-size="18" fill="white">
+                    <tspan x="420" y="200">How many new members joined this week?</tspan>
+                  </text>
+                  <text x="720" y="225" font-family="Arial, sans-serif" font-size="14" fill="#999999" text-anchor="end">Today, 2:45 PM</text>
+                  
+                  <!-- AI Answer Bubble -->
+                  <rect x="60" y="250" width="500" height="150" fill="#393939" rx="10" ry="10"/>
+                  <text font-family="Arial, sans-serif" font-size="18" fill="white">
+                    <tspan x="80" y="280">This week we've added <tspan fill="#FF661F" font-weight="bold">24 new members</tspan>,</tspan>
+                    <tspan x="80" y="310">which is a <tspan fill="#FF661F" font-weight="bold">15% increase</tspan> from last week.</tspan>
+                    <tspan x="80" y="350">Would you like to see their demographics breakdown</tspan>
+                    <tspan x="80" y="380">or preferred class times?</tspan>
+                  </text>
+                  <text x="540" y="395" font-family="Arial, sans-serif" font-size="14" fill="#999999" text-anchor="end">Today, 2:46 PM</text>
+                  
+                  <!-- Input Area -->
+                  <rect x="20" y="520" width="760" height="60" fill="#262626" rx="10" ry="10"/>
+                  <text x="50" y="555" font-family="Arial, sans-serif" font-size="18" fill="#666666">Ask Trisha anything about your studio...</text>
+                  
+                  <!-- Send Button -->
+                  <circle cx="740" cy="550" r="20" fill="#FF661F"/>
+                  <text x="740" y="556" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">➤</text>
+                  
+                  <!-- Footer Navigation -->
+                  <rect x="20" y="520" width="760" height="1" fill="#333333"/>
+                  <text font-family="Arial, sans-serif" font-size="14" fill="#999999">
+                    <tspan x="60" y="590">Marketing</tspan>
+                    <tspan x="180" y="590">Members</tspan>
+                    <tspan x="300" y="590">Finance</tspan>
+                    <tspan x="420" y="590">Operations</tspan>
+                    <tspan x="540" y="590">HR</tspan>
+                    <tspan x="660" y="590">Settings</tspan>
+                  </text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Problem</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>Wearing Too Many Hats</h3>
+                    <ul>
+                        <li>Studio owners are stretched thin, juggling multiple roles</li>
+                        <li>Important tasks compete for attention</li>
+                        <li>20+ hours weekly spent on admin tasks</li>
+                        <li>Leads to burnout and limited growth</li>
+                    </ul>
+                </div>
+                <div class="problem-item">
+                    <h3>Operational Complexity</h3>
+                    <ul>
+                        <li>Complex operations from marketing to scheduling</li>
+                        <li>Diverse expertise required across business domains</li>
+                        <li>Small studios lack specialized staff</li>
+                        <li>Common across all 1,500 Orangetheory studios</li>
+                    </ul>
+                </div>
+                <div class="problem-item">
+                    <h3>Administrative Burden</h3>
+                    <ul>
+                        <li>Endless emails, spreadsheets, and systems</li>
+                        <li>Human inconsistency directly impacts revenue</li>
+                        <li>Staff turnover leads to knowledge gaps</li>
+                        <li>Even the best staff occasionally miss opportunities</li>
+                    </ul>
+                </div>
+                <div class="problem-item">
+                    <h3>Limited Growth Capacity</h3>
+                    <ul>
+                        <li>Too much time working IN the business, not ON it</li>
+                        <li>Strategic opportunities take a backseat</li>
+                        <li>Current operations don't scale well</li>
+                        <li>Makes expanding to additional studios extremely difficult</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Solution</h2>
+            </div>
+            <div class="solution-container">
+                <div class="solution-text">
+                    <p>Trisha.AI is an AI-driven platform that automates and streamlines daily business operations for Orangetheory Fitness studios. It deploys specialized autonomous AI "agents" working together - like having a virtual CMO, CSO, CFO, COO, and HRO in one tool.</p>
+                    <p>These agents offload routine work from the owner's plate, allowing you to focus on changing people's lives through OTF's incredible workout experience.</p>
+                </div>
+                
+                <h3 class="solution-heading">One Conversation, Infinite Capabilities</h3>
+                <p>Studio owners interact with Trisha.AI through just one conversation window - no more juggling between multiple apps, dashboards, and systems. Behind this simple chat interface, Trisha.AI connects to all your business systems automatically.</p>
+                
+                <div class="agents-grid">
+                    <div class="agent-item">
+                        <span class="agent-icon">🔊</span>
+                        <h3>AI CMO</h3>
+                        <p>Handles marketing campaigns, social media, and member engagement strategies.</p>
+                    </div>
+                    <div class="agent-item">
+                        <span class="agent-icon">🤝</span>
+                        <h3>AI CSO</h3>
+                        <p>Manages sales pipeline, lead follow-up, and membership growth strategies.</p>
+                    </div>
+                    <div class="agent-item">
+                        <span class="agent-icon">💰</span>
+                        <h3>AI CFO</h3>
+                        <p>Monitors finances, generates reports, and provides budget insights.</p>
+                    </div>
+                    <div class="agent-item">
+                        <span class="agent-icon">⚙️</span>
+                        <h3>AI COO</h3>
+                        <p>Optimizes scheduling, monitors attendance, and streamlines operations.</p>
+                    </div>
+                    <div class="agent-item">
+                        <span class="agent-icon">👥</span>
+                        <h3>AI HRO</h3>
+                        <p>Handles staff scheduling, onboarding, and certification tracking.</p>
+                    </div>
+                    <div class="agent-item">
+                        <span class="agent-icon">🔄</span>
+                        <h3>MCP</h3>
+                        <p>Coordinates all agents to work together as a unified team across domains.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2>Architecture</h2>
+            </div>
+            <p>Trisha.AI is powered by a sophisticated multi-agent architecture with MCP (Multi-Agent Coordination Protocol) at its core, enabling seamless collaboration between specialized AI agents.</p>
+            
+            <div class="architecture-container">
+                <div class="mermaid">
+                    flowchart TD
+                        %% Main components
+                        User["🧑‍💼 Studio Owner/Manager"] --> |"Natural Language Queries"| UI("📱 Chat-Based Interface")
+                        UI --> |"Processes Requests"| Core["🧠 Trisha.AI Core"]
+                        
+                        %% MCP Layer
+                        Core --- MCP["⚙️ Multi-Agent Coordination Protocol (MCP)"]
+                        
+                        %% AI Agents
+                        MCP --> CMO["🔊 AI CMO Agent(Marketing)"]
+                        MCP --> CSO["🤝 AI CSO Agent(Sales & Membership)"]
+                        MCP --> CFO["💰 AI CFO Agent(Finance)"]
+                        MCP --> COO["⚙️ AI COO Agent(Operations)"]
+                        MCP --> HRO["👥 AI HRO Agent(HR & Staff)"]
+                        
+                        %% Cross-Agent Communication
+                        CMO <--> |"Coordinated Workflows"| CSO
+                        CSO <--> |"Coordinated Workflows"| CFO
+                        CFO <--> |"Coordinated Workflows"| COO
+                        COO <--> |"Coordinated Workflows"| HRO
+                        HRO <--> |"Coordinated Workflows"| CMO
+                        
+                        %% RPA Layer
+                        CMO & CSO & CFO & COO & HRO --> RPA["🤖 RPA Integration Layer"]
+                        
+                        %% External Systems
+                        RPA --> FB["Facebook Business"]
+                        RPA --> IG["Instagram"]
+                        RPA --> GB["Google Business"]
+                        RPA --> MB["Mindbody"]
+                        RPA --> OB["Orangebook"]
+                        RPA --> ADP["ADP Payroll"]
+                        RPA --> CT["Ceterus Accounting"]
+                        RPA --> SP["Orangetheory Studio Portal"]
+                        
+                        %% Secure Data Storage
+                        RPA --> SEC["🔒 Secure Data Storage & Security Layer"]
+                        
+                        %% Styling
+                        classDef interface fill:#FF661F,color:white,stroke:#333,stroke-width:1px
+                        classDef core fill:#222222,color:white,stroke:#FF661F,stroke-width:2px
+                        classDef mcp fill:#9966FF,color:white,stroke:#333,stroke-width:2px
+                        classDef cmo fill:#FF8C42,color:white,stroke:#333,stroke-width:1px
+                        classDef cso fill:#347AB7,color:white,stroke:#333,stroke-width:1px
+                        classDef cfo fill:#28A745,color:white,stroke:#333,stroke-width:1px
+                        classDef coo fill:#6F42C1,color:white,stroke:#333,stroke-width:1px
+                        classDef hro fill:#DC3545,color:white,stroke:#333,stroke-width:1px
+                        classDef rpa fill:#555555,color:white,stroke:#333,stroke-width:1px
+                        classDef systems fill:#F8F9FA,color:black,stroke:#DDD,stroke-width:1px
+                        classDef security fill:#1E1E1E,color:#FF661F,stroke:#FF661F,stroke-width:2px
+                        
+                        class User,UI interface
+                        class Core core
+                        class MCP mcp
+                        class CMO cmo
+                        class CSO cso
+                        class CFO cfo
+                        class COO coo
+                        class HRO hro
+                        class RPA rpa
+                        class FB,IG,GB,MB,OB,ADP,CT,SP systems
+                        class SEC security
+                </div>
+                
+                <div class="architecture-description">
+                    <h3>The Power of MCP - Teamwork for AI Agents</h3>
+                    <p>The Multi-Agent Coordination Protocol (MCP) is the teamwork engine that makes Trisha.AI extraordinary. Just like a successful Orangetheory management team collaborates, MCP enables AI agents to work together as a coordinated virtual executive team.</p>
+                    <p>MCP handles task decomposition, information sharing, consensus building, and workflow orchestration between agents. This allows agents to collaborate on complex tasks like promotion planning, member retention, and business expansion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Benefits</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Massive Cost Savings</h3>
+                    <p>Enable workforce reduction by up to 50% while improving operations. PhD-level expertise in every functional area without the associated salary costs.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">⏱️</div>
+                    <h3>Efficiency & Time Savings</h3>
+                    <p>Routine tasks automated, saving hours each week. More time on the gym floor with members focusing on changing people's lives.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <h3>Accuracy & Consistency</h3>
+                    <p>Significant reduction in human error. No more missed follow-ups or forgotten payments. Consistent execution regardless of who's working.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💡</div>
+                    <h3>Actionable Insights</h3>
+                    <p>Analyzes data and identifies trends owners might miss. Provides intelligent recommendations for better decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2>Vision & Roadmap</h2>
+            </div>
+            <div class="roadmap">
+                <div class="roadmap-item">
+                    <div class="roadmap-content">
+                        <p class="roadmap-date">PHASE 1 (CURRENT)</p>
+                        <h3 class="roadmap-title">My Studios</h3>
+                        <ul>
+                            <li>Building proof of concept with measurable results</li>
+                            <li>Testing and refining in Clearwater & Trinity Orangetheory studios</li>
+                            <li>Develop playbook for implementation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-content">
+                        <p class="roadmap-date">PHASE 2</p>
+                        <h3 class="roadmap-title">Orangetheory Network</h3>
+                        <ul>
+                            <li>Franchise by franchise expansion through studio owner relationships</li>
+                            <li>Leverage OTF-specific learnings for seamless onboarding</li>
+                            <li>Partner with Orangetheory corporate for network-wide rollout</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-content">
+                        <p class="roadmap-date">PHASE 3</p>
+                        <h3 class="roadmap-title">Small Business Ecosystem</h3>
+                        <ul>
+                            <li>Expand to other fitness franchise concepts</li>
+                            <li>Adapt to additional service-based small business verticals</li>
+                            <li>Build a platform for small business owners across industries</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-content">
+                        <p class="roadmap-date">LONG-TERM VISION</p>
+                        <h3 class="roadmap-title">The Future of Small Business Operations</h3>
+                        <ul>
+                            <li>Create the gold standard AI operations platform for small businesses</li>
+                            <li>Transform how entrepreneurs manage their businesses</li>
+                            <li>Enable small business owners to compete with larger corporations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Let's Transform Your Business Operations</h2>
+                <p>We are seeking input and potential partnerships as we develop Trisha.AI. Whether you're an Orangetheory studio owner, interested in testing the concept, or want to learn more about the technology, we'd love to hear from you.</p>
+                <a href="mailto:rchopra@orangetheoryfitness.com" class="btn">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Trisha.AI</h2>
+                    <div class="footer-otf-logo">OTF</div>
+                </div>
+                <p class="footer-tagline">Your AI Business Assistant</p>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Rohit Chopra</p>
+                    <p>Email: <a href="mailto:rchopra@orangetheoryfitness.com">rchopra@orangetheoryfitness.com</a></p>
+                    <p>Phone: (617) 752-1394</p>
+                    <p>Website: <a href="https://www.trisha.ai">www.trisha.ai</a></p>
+                </div>
+                <p class="copyright">&copy; 2025 Trisha.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid diagram
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'Montserrat'
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll animation function
+        const animateOnScroll = () => {
+            const items = document.querySelectorAll('.problem-item, .agent-item, .benefit-item, .roadmap-item');
+            
+            items.forEach(item => {
+                const itemPosition = item.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (itemPosition < screenPosition) {
+                    item.classList.add('animated');
+                }
+            });
+        };
+        
+        // Set initial styles for animation
+        document.querySelectorAll('.problem-item, .agent-item, .benefit-item, .roadmap-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        // Add class for animated items
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                .animated {
+                    opacity: 1 !important;
+                    transform: translateY(0) !important;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        // Run animation on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Mockup interaction
+        const mockup = document.querySelector('.mockup-container');
+        if (mockup) {
+            mockup.addEventListener('mouseenter', () => {
+                mockup.style.transform = 'perspective(1000px) rotateX(0)';
+            });
+            
+            mockup.addEventListener('mouseleave', () => {
+                mockup.style.transform = 'perspective(1000px) rotateX(2deg)';
+            });
+        }
+    </script>
+</body>
+</html>
